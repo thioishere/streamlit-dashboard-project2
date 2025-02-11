@@ -74,7 +74,7 @@ if menu_utama == "Menu Lanjutan":
         # Tambahkan spasi dengan elemen kosong
         st.write("\n" * 5)  # Menambahkan tiga baris kosong
 
-        data = pd.read_excel('C:/Users/Lenovo/Downloads/dashboard_project2/Harga Sembako 2022-2024.xlsx')
+        data = pd.read_excel('Harga Sembako 2022-2024.xlsx')
 
         # Menampilkan data
         with st.container():
