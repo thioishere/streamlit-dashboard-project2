@@ -294,7 +294,7 @@ if menu_utama == "Menu Lanjutan":
         fig.add_trace(go.Scatter(x=forecast_df_mul.index, y=forecast_df_mul[f'{komoditas_d}'], name='Forecast (Future)', line=dict(color='orange')))
 
         fig.update_layout(template="simple_white", font=dict(size=18), title_text=f'Peramalan Harga {komoditas_d} Menggunakan Model {min_mape_row["Model"]}',
-                        width=900, title_x=0.5, height=600, xaxis_title='Tanggal',
+                        width=900, title_x=0, height=600, xaxis_title='Tanggal',
                         yaxis_title=f'{komoditas_d}')
 
 
