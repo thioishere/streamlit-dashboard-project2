@@ -43,7 +43,7 @@ if menu_utama == "Menu Lanjutan":
            - **8**: Daging Ayam Ras  
            - **9**: Telur Ayam Ras 
         2. Dibawah tabel **Masukkan Komoditas**, akan ada *warning* dan *error* dengan pernyataan 
-           *"NameError: name 'kom' is not defined"*. Pernyataan *error* tersebut dapat diabaikan karena pengguna belum memasukkan
+           *"NameError: This app has encountered an error."*. Pernyataan *error* tersebut dapat diabaikan karena pengguna belum memasukkan
            komoditas yang ingin dipilih. Masukkanlah **komoditas** yang diinginkan lalu *enter*.
         3. Dashboard akan menampilkan data terkini/terakhir dari komoditas disusul dengan grafik 
            harga komoditas tahun 2022-2024. Dashboard juga akan menampilkan visualisasi peramalan  harga komoditas 
