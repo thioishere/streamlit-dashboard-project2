@@ -33,15 +33,15 @@ if menu_utama == "Menu Lanjutan":
         1. Pilih menu **Dashboard Forecast** untuk melakukan analisis, pada dashboard pengguna akan diberi pilihan 
            untuk memilih komoditas sembako yang ingin diprediksi. Komoditas yang dipilih akan di*input* oleh pengguna berdasarkan angka yang merepresentasikan komodtas sembako.
            Berikut merupakan keterangan dari setiap angka yang merepresentasikan komoditas sembako:
-           - **1**: Beras Premium  
-           - **2**: Kedelai Biji Kering (*Impor*)  
-           - **3**: Cabai Merah Keriting  
-           - **4**: Bawang Merah  
-           - **5**: Gula Konsumsi  
-           - **6**: Minyak Goreng Kemasan Sederhana  
-           - **7**: Daging Sapi Murni  
-           - **8**: Daging Ayam Ras  
-           - **9**: Telur Ayam Ras 
+           - **1**: Beras Premium (kg) 
+           - **2**: Kedelai Biji Kering (*Impor*) (kg) 
+           - **3**: Cabai Merah Keriting (kg)
+           - **4**: Bawang Merah (kg)
+           - **5**: Gula Konsumsi (kg)  
+           - **6**: Minyak Goreng Kemasan Sederhana (liter)
+           - **7**: Daging Sapi Murni (kg)
+           - **8**: Daging Ayam Ras (kg)
+           - **9**: Telur Ayam Ras (kg)
         2. Dibawah tabel **Masukkan Komoditas**, akan ada *warning* dan *error* dengan pernyataan 
            *"NameError: This app has encountered an error."*. Pernyataan *error* tersebut dapat diabaikan karena pengguna belum memasukkan
            komoditas yang ingin dipilih. Masukkanlah **komoditas** yang diinginkan lalu *enter*.
@@ -101,6 +101,7 @@ if menu_utama == "Menu Lanjutan":
             "8": "Daging Ayam Ras",
             "9": "Telur Ayam Ras"
         }
+        
         df_kom = pd.DataFrame(list(komoditas_dict.items()), columns=['No', 'Komoditas'])
 
         # Set kolom 'Bulan' sebagai index
@@ -345,6 +346,7 @@ if menu_utama == "Menu Lanjutan":
         df = df.reset_index()
         df = df.rename(columns={'index': 'Bulan'})
 
+        
         def hitung_inflasi_komoditas(df, komoditas, bulan_input, pendapatan):
 
             # Pastikan tanggal tersedia dalam index
@@ -372,7 +374,7 @@ if menu_utama == "Menu Lanjutan":
 
         pendapatan_input = st.number_input("Masukkan pendapatan masyarakat", min_value=0, step=1000)# subsidi_input = float(input("Masukkan subsidi yang diberikan: "))
 
-
+        satuan = "(liter)" if komoditas_dict == "6" else "(kg)"
 
         if st.button("📋 Hitung Inflasi dan Daya Beli"):     
             try:
@@ -384,26 +386,26 @@ if menu_utama == "Menu Lanjutan":
                 st.markdown(
                     f"""
                     <h4 style='text-align: left; font-weight: bold; color: #333; margin-bottom: 5px;'>
-                    📊 Analisis untuk Komoditas: {komoditas_d} - Bulan {bulan_input}
+                    📊 Analisis untuk Komoditas: {komoditas_d} {satuan} - Bulan {bulan_input}
                     </h4>
                     <hr style='border: 1px solid #bbb; margin: 5px 0;'>
                     """, 
                     unsafe_allow_html=True
                 )
-                st.write(f"💸 Harga {komoditas_d} pada tahun sebelumnya ({index_sebelum}): Rp{harga_sebelumnya:,.2f}")
+                st.write(f"💸 Harga {komoditas_d} {satuan} pada tahun sebelumnya ({index_sebelum}): Rp{harga_sebelumnya:,.2f}")
                 # Logika inflasi atau deflasi
                 if inflasi > 0:
                     perubahan_harga = "setelah inflasi"
-                    st.write(f"📈 Terjadi inflasi sebesar: {inflasi:.2f}% dibandingkan tahun sebelumnya sehingga daya beli masyarakat terhadap {komoditas_d} akan turun.")
+                    st.write(f"📈 Terjadi inflasi sebesar: {inflasi:.2f}% dibandingkan tahun sebelumnya sehingga daya beli masyarakat terhadap {komoditas_d} {satuan} akan turun.")
                 elif inflasi < 0:
                     perubahan_harga = "setelah deflasi"
-                    st.write(f"📉 Terjadi deflasi sebesar: {(inflasi):.2f}% dibandingkan tahun sebelumnya sehingga daya beli masyarakat terhadap {komoditas_d} akan naik.")
+                    st.write(f"📉 Terjadi deflasi sebesar: {(inflasi):.2f}% dibandingkan tahun sebelumnya sehingga daya beli masyarakat terhadap {komoditas_d} {satuan} akan naik.")
                 else:
                     perubahan_harga = "karena tidak ada perubahan harga"
-                    st.write("🔄 Tidak ada inflasi maupun deflasi karena harga tetap sama sehingga daya beli masyarakat terhadap {komoditas_d} tetap.")
-                st.write(f"💸 Harga {komoditas_d} {perubahan_harga}: Rp{harga_setelah_inflasi:,.2f}")
-                st.write(f"🛒 Daya beli masyarakat untuk {komoditas_d} pada saat tahun sebelumnya: {daya_beli_sebelum_inflasi:.2f} unit")
-                st.write(f"**🛒 Daya beli masyarakat untuk {komoditas_d} pada saat {bulan_input}: {daya_beli_setelah_inflasi:.2f} unit**")
+                    st.write(f"🔄 Tidak ada inflasi maupun deflasi karena harga tetap sama sehingga daya beli masyarakat terhadap {komoditas_d} {satuan} tetap.")
+                st.write(f"💸 Harga {komoditas_d} {satuan} {perubahan_harga}: Rp{harga_setelah_inflasi:,.2f}")
+                st.write(f"🛒 Daya beli masyarakat untuk {komoditas_d} {satuan} pada saat tahun sebelumnya: {daya_beli_sebelum_inflasi:.2f} unit")
+                st.write(f"**🛒 Daya beli masyarakat untuk {komoditas_d} {satuan} pada saat {bulan_input}: {daya_beli_setelah_inflasi:.2f} unit**")
             except Exception as e:
                 print('error:)')
         
