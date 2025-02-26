@@ -372,9 +372,9 @@ if menu_utama == "Menu Lanjutan":
 
         bulan_input = st.text_input("Masukkan bulan yang diinginkan menggunakan format (YYYY-MM-DD)")
 
-        pendapatan_input = st.number_input("Masukkan pendapatan masyarakat", min_value=0, step=1000)# subsidi_input = float(input("Masukkan subsidi yang diberikan: "))
+        pendapatan_input = st.number_input("Masukkan pendapatan masyarakat (dalam Rupiah)", min_value=0, step=1000)# subsidi_input = float(input("Masukkan subsidi yang diberikan: "))
 
-        satuan = "(liter)" if komoditas_dict == "6" else "(kg)"
+        satuan = "liter" if komoditas_d == "Minyak Goreng Kemasan Sederhana" else "kg"
 
         if st.button("📋 Hitung Inflasi dan Daya Beli"):     
             try:
@@ -386,7 +386,7 @@ if menu_utama == "Menu Lanjutan":
                 st.markdown(
                     f"""
                     <h4 style='text-align: left; font-weight: bold; color: #333; margin-bottom: 5px;'>
-                    📊 Analisis untuk Komoditas: {komoditas_d} {satuan} - Bulan {bulan_input}
+                    📊 Analisis untuk Komoditas: {komoditas_d} ({satuan}) - Bulan {bulan_input}
                     </h4>
                     <hr style='border: 1px solid #bbb; margin: 5px 0;'>
                     """, 
@@ -403,9 +403,9 @@ if menu_utama == "Menu Lanjutan":
                 else:
                     perubahan_harga = "karena tidak ada perubahan harga"
                     st.write(f"🔄 Tidak ada inflasi maupun deflasi karena harga tetap sama sehingga daya beli masyarakat terhadap {komoditas_d} {satuan} tetap.")
-                st.write(f"💸 Harga {komoditas_d} {satuan} {perubahan_harga}: Rp{harga_setelah_inflasi:,.2f}")
-                st.write(f"🛒 Daya beli masyarakat untuk {komoditas_d} {satuan} pada saat tahun sebelumnya: {daya_beli_sebelum_inflasi:.2f} unit")
-                st.write(f"**🛒 Daya beli masyarakat untuk {komoditas_d} {satuan} pada saat {bulan_input}: {daya_beli_setelah_inflasi:.2f} unit**")
+                st.write(f"💸 Harga {komoditas_d}/{satuan} {perubahan_harga}: Rp{harga_setelah_inflasi:,.2f}")
+                st.write(f"🛒 Daya beli masyarakat untuk {komoditas_d} pada saat tahun sebelumnya: {daya_beli_sebelum_inflasi:.2f} {satuan}")
+                st.write(f"**🛒 Daya beli masyarakat untuk {komoditas_d} pada saat {bulan_input}: {daya_beli_setelah_inflasi:.2f} {satuan}**")
             except Exception as e:
                 print('error:)')
         
